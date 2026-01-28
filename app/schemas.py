@@ -2,12 +2,12 @@ from pydantic import BaseModel
 from typing import List, Optional
 
 class Message(BaseModel):
-    sender: str
-    message: str
+    sender: Optional[str] = "scammer"
+    message: Optional[str] = ""
 
 class ScamRequest(BaseModel):
-    conversation_id: str
-    message: str
+    conversation_id: Optional[str] = "health-check"
+    message: Optional[str] = "test"
     history: Optional[List[Message]] = []
 
 class EngagementMetrics(BaseModel):

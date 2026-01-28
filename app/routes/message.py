@@ -13,7 +13,6 @@ from app.core.extractor import extract_intelligence
 from app.utils.security import verify_api_key
 from app.core.metrics import calculate_risk
 
-
 router = APIRouter()
 
 @router.post("/message", response_model=ScamResponse)
@@ -21,13 +20,27 @@ def process_message(
     data: ScamRequest,
     api_key: str = Depends(verify_api_key)
 ):
+    
+    if not data or not data.message:
+        return ScamResponse(
+            scam_detected=False,
+            confidence_score=0.0,
+            engagement_metrics=EngagementMetrics(
+                conversation_turns=0,
+                engagement_duration_seconds=0
+            ),
+            extracted_intelligence=ExtractedIntelligence(
+                upi_ids=[],
+                bank_accounts=[],
+                phishing_links=[]
+            )
+        )
+
     convo = update_conversation(data.conversation_id, data.message)
 
-    
     extracted = extract_intelligence(convo["messages"])
     update_intelligence(data.conversation_id, extracted)
 
-    
     if convo["agent_active"]:
         reply = agent_reply(convo)
     else:
@@ -46,7 +59,6 @@ def process_message(
         scam_detected=convo["agent_active"],
         confidence_score=round(risk_score / 100, 2),
         engagement_metrics=EngagementMetrics(
-
             conversation_turns=convo["turns"],
             engagement_duration_seconds=duration
         ),
@@ -56,4 +68,3 @@ def process_message(
             phishing_links=convo["intelligence"]["phishing_links"]
         )
     )
-

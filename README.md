@@ -7,11 +7,11 @@ Agentic Honey-Pot for Scam Detection & Intelligence Extraction
 The Agentic Honey-Pot API is an AI-powered autonomous system designed to detect scam messages and actively engage scammers using a believable AI persona.
 Once scam intent is detected, the system hands off the interaction to an autonomous AI agent that conducts multi-turn conversations to extract actionable scam intelligence such as:
 
-  UPI IDs
+-UPI IDs
 
-  Bank account numbers
+-Bank account numbers
 
-  Phishing URLs
+-Phishing URLs
 
 The API is compatible with Mock Scammer API–based evaluation systems and returns structured JSON output for automated scoring.
 
@@ -45,9 +45,9 @@ Receives incoming messages from the Mock Scammer API, analyzes scam intent, enga
 
 2.If scam intent is detected:
 
-  Autonomous AI agent is activated
+-Autonomous AI agent is activated
 
-  Agent continues conversation independently
+-Agent continues conversation independently
 
 3.Multi-turn conversation is maintained using conversation_id
 

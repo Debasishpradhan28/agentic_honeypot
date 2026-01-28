@@ -8,7 +8,7 @@ def get_conversation(conversation_id):
         "start_time": time.time(),
         "turns": 0,
         "agent_active": False,
-        "stage": "trust",  # trust → extract → confirm
+        "stage": "trust",  
         "intelligence": {
             "upi_ids": [],
             "bank_accounts": [],

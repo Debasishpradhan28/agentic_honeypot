@@ -3,7 +3,6 @@ def agent_reply(conversation):
     messages = conversation["messages"]
     last_message = messages[-1]["message"].lower()
 
-    # STAGE 1: TRUST BUILDING
     if stage == "trust":
         if "blocked" in last_message or "verify" in last_message:
             conversation["stage"] = "extract"
@@ -11,7 +10,7 @@ def agent_reply(conversation):
 
         return "I’m not very familiar with these processes. Please explain slowly."
 
-    # STAGE 2: EXTRACTION
+    
     if stage == "extract":
         if "upi" in last_message:
             return "I have UPI but I’m not sure how this works. Do you need my ID or will you send a request?"
@@ -25,7 +24,7 @@ def agent_reply(conversation):
 
         return "Okay… please guide me step by step."
 
-    # STAGE 3: CONFIRMATION
+    
     if stage == "confirm":
         return "I’m trying to open it but network is slow. Is there another way?"
 

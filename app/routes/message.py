@@ -23,11 +23,11 @@ def process_message(
 ):
     convo = update_conversation(data.conversation_id, data.message)
 
-    # Extract intelligence from all messages
+    
     extracted = extract_intelligence(convo["messages"])
     update_intelligence(data.conversation_id, extracted)
 
-    # Agent handoff logic
+    
     if convo["agent_active"]:
         reply = agent_reply(convo)
     else:

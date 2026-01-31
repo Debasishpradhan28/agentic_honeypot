@@ -12,14 +12,27 @@ from app.core.agent import agent_reply
 from app.core.extractor import extract_intelligence
 from app.utils.security import verify_api_key
 from app.core.metrics import calculate_risk
+from typing import Optional
+
 
 router = APIRouter()
 
-@router.post("/message", response_model=ScamResponse)
-def process_message(
-    data: ScamRequest,
+@router.get("/message")
+def message_health_check(
     api_key: str = Depends(verify_api_key)
 ):
+    return {
+        "status": "ok",
+        "message": "Agentic Honeypot API reachable"
+    }
+
+
+@router.post("/message", response_model=ScamResponse)
+def process_message(
+    data: Optional[ScamRequest] = None,
+    api_key: str = Depends(verify_api_key)
+):
+
     
     if not data or not data.message:
         return ScamResponse(
